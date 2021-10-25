@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    {{ __('You are logged in!') }}
+                    {{ session()->get('locale') == 'en' ? 'you are logged in' : 'Kamu sudah login' }}
                 </div>
             </div>
         </div>

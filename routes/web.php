@@ -22,3 +22,5 @@ Auth::routes(['register' => false]);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::prefix('companies')->middleware('auth')->name('admin.companies.')->group(base_path('routes/web/companies.php'));
+
+Route::prefix('lang')->middleware('auth')->name('lang.')->group(base_path('routes/web/lang.php'));

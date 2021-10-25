@@ -15,7 +15,7 @@
         <div class="card mt-3">
             <div class="card-body">
                 <div class="d-flex">
-                    <h1>Companies <small class="tex-muted">Showing All Companies</small></h1>
+                    <h1>Companies <small class="tex-muted">{{ session()->get('locale') == 'en' ? 'Showing All Companies' : 'Menampilkan semua bahasa' }}</small></h1>
                     <div class="ml-auto">
                         <div class="dropdown">
                             <button class="btn btn-outline-secondary btm-sm dropdown-toggle" type="button"
