@@ -27,7 +27,7 @@ class StoreCompanyRequest extends FormRequest
             'name' => 'required',
             'email' => 'required',
             'website' => 'required',
-            'photo' => 'nullable|mimes:png,jpg,jpeg|max:2000'
+            'photo' => 'nullable|mimes:png,jpg,jpeg|max:2000|dimensions:min_width=100,min_height=100'
         ];
     }
 }

@@ -21,8 +21,8 @@
                                 <a class="dropdown-item" href="{{ route('admin.companies.dashboard') }}">View
                                     Dashboard</a>
                                 <a class="dropdown-item"
-                                    href="{{ route('admin.companies.show', ['company' => $company->id]) }}">Show Company</a>
-                                    <a href="#" class="dropdown-item text-danger" onclick="deleteCompany()">Delete Employee</a>
+                                    href="{{ route('admin.companies.show', ['company' => $company->id]) }}">{{ session()->get('locale') == 'en' ? 'Show Company' : 'Tampilkan Perusahaan' }}</a>
+                                    <a href="#" class="dropdown-item text-danger" onclick="deleteCompany()">{{ session()->get('locale') == 'en' ? 'Delete Company' : 'Hapus Perusahaan' }}</a>
                                     <form action="{{route('admin.companies.delete', ['company'=> $company-> id])}}" id="delete-company-form" style="display:none;" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -44,10 +44,10 @@
                         @endif
                         <hr>
                         <button class="btn btn-outline-primary btn-sm btn-block" data-toggle="modal" data-target="#updateCompanyLogo">
-                            New Company Logo
+                            {{ session()->get('locale') == 'en' ? 'New Company Logo' : 'Logo Baru' }}
                         </button>
                         <button class="btn btn-outline-primary btn-sm btn-block" onclick="deleteCompanyLogo()">
-                            <i class="fas fa-trash"></i> Delete Company Logo
+                            <i class="fas fa-trash"></i> {{ session()->get('locale') == 'en' ? 'Delete Company Logo' : 'Hapus Logo' }}
                             <form action="{{route('admin.companies.delete.company-logo', $company->id)}}" method="POST" id="delete-company-logo-form">
                                 @csrf
                                 @method('DELETE')
@@ -59,7 +59,7 @@
             <div class="col-sm-8">
                 <div class="card mt-3">
                     <div class="card-body">
-                        <h5>Company Details</h5>
+                        <h5>{{ session()->get('locale') == 'en' ? 'Company Details' : 'Detil Perusahaan' }}</h5>
                         <hr>
                         @if ($errors->count())
                             <div class="alert alert-danger">
@@ -87,7 +87,7 @@
                                 <label for="">Website</label>
                                 <input type="text" class="form-control" name="website" value="{{$company->website}}">
                             </div>
-                            <button class="btn btn-primary float-right">Update Company</button>
+                            <button class="btn btn-primary float-right">{{ session()->get('locale') == 'en' ? 'Update Company' : 'Update Perusahaan' }}</button>
                         </form>
                     </div>
                 </div>
@@ -95,7 +95,7 @@
                 <div class="card mt-3">
                     <div class="card-body">
                         <div class="d-flex">
-                            <h1>Employees</h1>
+                            <h1>{{ session()->get('locale') == 'en' ? 'Employee' : 'Karyawan' }}</h1>
                             <div class="ml-auto">
                                 <div class="dropdown">
                                     <button class="btn btn-outline-secondary btm-sm dropdown-toggle" type="button"
@@ -103,7 +103,7 @@
                                         Actions
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="{{ route('admin.companies.employees.create', $company->id) }}">Add New Employee</a>
+                                        <a class="dropdown-item" href="{{ route('admin.companies.employees.create', $company->id) }}">{{ session()->get('locale') == 'en' ? 'Add New Employee' : 'Tambah Karyawan Baru' }}</a>
                                     </div>
                                 </div>
                             </div>
@@ -136,7 +136,7 @@
                                                         </button>
                                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                                                             <a class="dropdown-item" href="{{ route('admin.companies.employees.edit', ['employee'=> $employee-> id]) }}">Edit</a>
-                                                            <a href="#" class="dropdown-item text-danger" onclick="deleteEmployee()">Delete Employee</a>
+                                                            <a href="#" class="dropdown-item text-danger" onclick="deleteEmployee()">{{ session()->get('locale') == 'en' ? 'Delete Employee' : 'Hapus Karyawan' }}</a>
                                                             <form action="{{route('admin.companies.employees.delete', ['employee'=> $employee-> id])}}" id="delete-employee-form" style="display:none;" method="POST">
                                                                 @csrf
                                                                 @method('DELETE')
@@ -159,7 +159,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Update Company Logo</h5>
+                    <h5 class="modal-title">{{ session()->get('locale') == 'en' ? 'Update Company Logo' : 'Update Logo Perusahaan' }}</h5>
                     <button type="button" clas="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -172,7 +172,7 @@
                         <label for="">Choose an Image</label>
                         <input type="file" class="form-control-file" name="photo">
                     </div>
-                    <button class="btn btn-primary float-right">Update Company Logo</button>
+                    <button class="btn btn-primary float-right">{{ session()->get('locale') == 'en' ? 'Update Company Logo' : 'Update Logo Perusahaan' }}</button>
                     </form>
                 </div>
             </div>

@@ -4,7 +4,7 @@
     <div class="card mt-3">
         <div class="card-body">
             <div class="d-flex">
-                <h1>Create Employee Details <small class="text-muted">{{$company->name}}</small></h1>
+                <h1>{{ session()->get('locale') == 'en' ? 'Create Employee Details' : 'Buat Detil Karyawan' }} <small class="text-muted">{{$company->name}}</small></h1>
                 <div class="ml-auto">
                     <div class="dropdown">
                         <button class="btn btn-outline-secondary btm-sm dropdown-toggle" type="button"
@@ -55,7 +55,7 @@
                         <input type="text" name="phone" class="form-control">
                     </div>
                 </div>
-                <button class="btn btn-primary float-right">Create Employee</button>
+                <button class="btn btn-primary float-right">{{ session()->get('locale') == 'en' ? 'Create Employee' : 'Buat Karyawan' }}</button>
             </form>
         </div>
     </div>

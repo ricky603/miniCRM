@@ -7,67 +7,13 @@
         </div>
     @endif
     <div class="container">
-        <div class="card mt-3">
-            <div class="card-body">
-                <div class="d-flex">
-                    <h1>Edit Company <small class="text-muted">{{ $company->name }}</small></h1>
-                    <div class="ml-auto">
-                        <div class="dropdown">
-                            <button class="btn btn-outline-secondary btm-sm dropdown-toggle" type="button"
-                                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Actions
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="{{ route('admin.companies.dashboard') }}">{{ session()->get('locale') == 'en' ? 'View Dashboard' : 'Tampilkan Dashboard' }}</a>
-                                <a class="dropdown-item"
-                                    href="{{ route('admin.companies.edit', ['company'=> $company-> id]) }}">{{ session()->get('locale') == 'en' ? 'Edit Company' : 'Edit Perusahaan' }}</a>
-                                    <a href="#" class="dropdown-item text-danger" onclick="deleteCompany()">{{ session()->get('locale') == 'en' ? 'Delete Company' : 'Hapus Perusahaan' }}</a>
-                                    <form action="{{route('admin.companies.delete', ['company'=> $company-> id])}}" id="delete-company-form" style="display:none;" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                    </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="row">
-            <div class="col-sm-4">
-                <div class="card mt-3">
-                    <div class="card-body">
-                        @if ($company->photo)
-                            <img src="{{Storage::url($company->photo)}}" alt="" width="100">
-                        @else
-                            <img src="/images/user.png" width="100" alt="">
-                        @endif
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-8">
-                <div class="card mt-3">
-                    <div class="card-body">
-                        <h5>{{ session()->get('locale') == 'en' ? 'Edit Company Details' : 'Edit Detil Perusahaan' }}</h5>
-                        <hr>
-                            <div class="form-group">
-                                <label for="">Name</label>
-                                <p>{{$company->name}}</p>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Email</label>
-                                <p>{{$company->email}}</p>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Website</label>
-                                <p>{{$company->website}}</p>
-                            </div>
-                    </div>
-                </div>
+            <div class="col-sm-12">
 
                 <div class="card mt-3">
                     <div class="card-body">
                         <div class="d-flex">
-                            <h1>{{ session()->get('locale') == 'en' ? 'Employee' : 'Karyawan' }}</h1>
+                            <h1>{{ session()->get('locale') == 'en' ? 'Employee' : 'Karyawan' }} <small class="text-muted">{{ $company->name }}</small></h1>
                             <div class="ml-auto">
                                 <div class="dropdown">
                                     <button class="btn btn-outline-secondary btm-sm dropdown-toggle" type="button"
@@ -135,12 +81,6 @@
             var r = confirm("Are you sure you want to delete this employee?")
             if (r) {
                 document.querySelector('form#delete-employee-form').submit()
-            }
-        }
-        function deleteCompany() {
-            var r = confirm("Are you sure you want to delete this company?")
-            if (r) {
-                document.querySelector('form#delete-company-form').submit()
             }
         }
     </script>

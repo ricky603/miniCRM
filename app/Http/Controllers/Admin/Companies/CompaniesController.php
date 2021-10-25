@@ -28,7 +28,7 @@ class CompaniesController extends Controller
         // }
 
         // return view('admin.companies.index');
-        return view('admin.companies.index', ['companies' => companies::latest()->paginate(10)]);
+        return view('admin.companies.index', ['companies' => companies::all()]);
     }
 
     /**
@@ -82,6 +82,12 @@ class CompaniesController extends Controller
     public function show(Companies $company)
     {
         return view('admin.companies.show', compact('company'));
+    }
+
+    public function showEmployees(Companies $company)
+    {   
+        // dd($company);
+        return view('admin.companies.showEmployees', compact('company'));
     }
 
     /**

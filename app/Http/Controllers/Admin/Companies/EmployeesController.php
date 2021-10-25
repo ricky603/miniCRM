@@ -11,6 +11,13 @@ use App\Http\Requests\companies\employees\UpdateEmployeeRequest;
 
 class EmployeesController extends Controller
 {
+
+    public function index()
+    {   
+        // dd(employees::latest()->paginate(10));
+        return view('admin.employees.index', ['employees' => employees::latest()->all()]);
+    }
+
     public function create(Companies $company)
     {
         return view('admin.companies.employee.create', compact('company'));

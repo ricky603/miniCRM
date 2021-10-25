@@ -15,7 +15,7 @@
         <div class="card mt-3">
             <div class="card-body">
                 <div class="d-flex">
-                    <h1>Companies <small class="tex-muted">{{ session()->get('locale') == 'en' ? 'Showing All Companies' : 'Menampilkan semua bahasa' }}</small></h1>
+                    <h1><small class="tex-muted">{{ session()->get('locale') == 'en' ? 'Showing All Companies' : 'Menampilkan semua perusahaan' }}</small></h1>
                     <div class="ml-auto">
                         <div class="dropdown">
                             <button class="btn btn-outline-secondary btm-sm dropdown-toggle" type="button"
@@ -23,7 +23,7 @@
                                 Actions
                             </button>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="{{ route('admin.companies.create') }}">Create Company</a>
+                                <a class="dropdown-item" href="{{ route('admin.companies.create') }}">{{ session()->get('locale') == 'en' ? 'Create Company' : 'Buat Perusahaan' }}</a>
                             </div>
                         </div>
                     </div>
@@ -54,9 +54,10 @@
                                                 </button>
                                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                                                     <a class="dropdown-item"
-                                                    href="{{ route('admin.companies.show', ['company' => $company->id]) }}">Show Company</a>
+                                                    href="{{ route('admin.companies.show', ['company' => $company->id]) }}">{{ session()->get('locale') == 'en' ? 'Show Company' : 'Tampilkan Perusahaan' }}</a>
                                                     <a class="dropdown-item" href="{{ route('admin.companies.edit', ['company'=> $company-> id]) }}">Edit</a>
-                                                    <a href="#" class="dropdown-item text-danger" onclick="deleteCompany()">Delete Employee</a>
+                                                    <a href="{{route('admin.companies.showEmployees', ['company'=> $company-> id])}}" class="dropdown-item">Show Employees</a>
+                                                    <a href="#" class="dropdown-item text-danger" onclick="deleteCompany()">{{ session()->get('locale') == 'en' ? 'Delete Company' : 'Hapus Perusahaan' }}</a>
                                                     <form action="{{route('admin.companies.delete', ['company'=> $company-> id])}}" id="delete-company-form" style="display:none;" method="POST">
                                                         @csrf
                                                         @method('DELETE')
