@@ -10,7 +10,7 @@
         <div class="card mt-3">
             <div class="card-body">
                 <div class="d-flex">
-                    <h1>Edit Company <small class="text-muted">{{ $company->name }}</small></h1>
+                    <h1>{{ session()->get('locale') == 'en' ? 'Edit Company' : 'Edit Perusahaan' }} <small class="text-muted">{{ $company->name }}</small></h1>
                     <div class="ml-auto">
                         <div class="dropdown">
                             <button class="btn btn-outline-secondary btm-sm dropdown-toggle" type="button"
@@ -76,7 +76,7 @@
                             @csrf
                             @method('PUT')
                             <div class="form-group">
-                                <label for="">Name</label>
+                                <label for="">{{ session()->get('locale') == 'en' ? 'Name' : 'Nama' }}</label>
                                 <input type="text" class="form-control" name="name" value="{{$company->name}}">
                             </div>
                             <div class="form-group">
