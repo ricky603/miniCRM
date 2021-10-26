@@ -22,10 +22,10 @@
                     <table id="company-table" class="table table-hover table-striped table-bordered">
                         <thead>
                             <tr>
-                                <th>First Name</th>
-                                <th>Last Name</th>
+                                <th>{{ session()->get('locale') == 'en' ? 'First Name' : 'Nama Depan' }}</th>
+                                <th>{{ session()->get('locale') == 'en' ? 'Last Name' : 'Nama Belakang' }}</th>
                                 <th>Email</th>
-                                <th>Phone</th>
+                                <th>{{ session()->get('locale') == 'en' ? 'Phone' : 'Nomor Telepon' }}</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>

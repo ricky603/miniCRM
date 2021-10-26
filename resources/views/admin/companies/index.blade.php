@@ -33,7 +33,7 @@
                 <table id="company-table" class="table table-hover table-striped table-bordered">
                     <thead>
                         <tr>
-                            <th>Name</th>
+                            <th>{{ session()->get('locale') == 'en' ? 'Name' : 'Nama' }}</th>
                             <th>Email</th>
                             <th>Website</th>
                             <th>Actions</th>

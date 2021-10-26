@@ -25,7 +25,7 @@
                 @csrf
                 <div class="form-group row">
                     <label for="" class="col-md-3">
-                        First Name
+                    {{ session()->get('locale') == 'en' ? 'First Name' : 'Nama Depan' }}
                     </label>
                     <div class="col-md-9">
                         <input type="text" name="first_name" class="form-control">
@@ -33,7 +33,7 @@
                 </div>
                 <div class="form-group row">
                     <label for="" class="col-md-3">
-                        Last Name
+                    {{ session()->get('locale') == 'en' ? 'Last Name' : 'Nama Belakang' }}
                     </label>
                     <div class="col-md-9">
                         <input type="text" name="last_name" class="form-control">
@@ -49,7 +49,7 @@
                 </div>
                 <div class="form-group row">
                     <label for="" class="col-md-3">
-                        phone
+                    {{ session()->get('locale') == 'en' ? 'Phone' : 'Nomor Telepon' }}
                     </label>
                     <div class="col-md-9">
                         <input type="text" name="phone" class="form-control">

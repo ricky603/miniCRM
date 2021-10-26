@@ -10,7 +10,7 @@
         <div class="card mt-3">
             <div class="card-body">
                 <div class="d-flex">
-                    <h1>Edit Company <small class="text-muted">{{ $company->name }}</small></h1>
+                    <h1><small class="text-muted">{{ $company->name }}</small></h1>
                     <div class="ml-auto">
                         <div class="dropdown">
                             <button class="btn btn-outline-secondary btm-sm dropdown-toggle" type="button"
@@ -47,7 +47,7 @@
             <div class="col-sm-8">
                 <div class="card mt-3">
                     <div class="card-body">
-                        <h5>{{ session()->get('locale') == 'en' ? 'Edit Company Details' : 'Edit Detil Perusahaan' }}</h5>
+                        <h5>{{ session()->get('locale') == 'en' ? 'Company Details' : 'Detil Perusahaan' }}</h5>
                         <hr>
                             <div class="form-group">
                                 <label for="">Name</label>
@@ -85,10 +85,10 @@
                             <table id="employee-table" class="table table-hover table-striped table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
+                                        <th>{{ session()->get('locale') == 'en' ? 'First Name' : 'Nama Depan' }}</th>
+                                        <th>{{ session()->get('locale') == 'en' ? 'Last Name' : 'Nama Belakang' }}</th>
                                         <th>Email</th>
-                                        <th>Phone</th>
+                                        <th>{{ session()->get('locale') == 'en' ? 'Phone' : 'Nomor Telepon' }}e</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>

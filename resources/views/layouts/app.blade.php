@@ -54,20 +54,29 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    Companies
+                                {{ session()->get('locale') == 'en' ? 'Companies' : 'Perusahaan' }}
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a href="{{route('admin.companies.dashboard')}}" class="dropdown-item">Manage Companies</a>
+                                    <a href="{{route('admin.companies.dashboard')}}" class="dropdown-item">{{ session()->get('locale') == 'en' ? 'Manage Companies' : 'Pengaturan Perusahaan' }}</a>
                                 </div>
                             </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    Employees
+                                {{ session()->get('locale') == 'en' ? 'Employees' : 'Karyawan' }}
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a href="{{route('admin.employees.dashboard')}}" class="dropdown-item">Manage Employees</a>
+                                    <a href="{{route('admin.employees.dashboard')}}" class="dropdown-item">{{ session()->get('locale') == 'en' ? 'Manage Employees' : 'pengaturan Karyawan' }}</a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ session()->get('locale') == 'en' ? 'Change Language' : 'Ganti Bahasa' }}
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a href="{{route('lang.lang')}}" class="dropdown-item">{{ session()->get('locale') == 'en' ? 'Change Language' : 'Ganti Bahasa' }}</a>
                                 </div>
                             </li>
                             <li class="nav-item dropdown">
@@ -85,15 +94,6 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
-                                </div>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ session()->get('locale') == 'en' ? 'Change Language' : 'Ganti Bahasa' }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    {{ session()->get('locale') == 'en' ? 'Change Language' : 'Ganti Bahasa' }}
                                 </div>
                             </li>
                         @endguest
