@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use bfinlay\SpreadsheetSeeder\SpreadsheetSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,6 +18,10 @@ class DatabaseSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@admin.com',
             'password' => '$2y$10$G4zbovEKHuNQuEGOWC7d.OickeEtqriFL4CZyvsbZV1W6dxpgOzFG'
+        ]);
+
+        $this->call([
+            SpreadsheetSeeder::class,
         ]);
     }
 }

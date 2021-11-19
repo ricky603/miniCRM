@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Jobs;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +17,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Route::get('send-mail', function() {
+//     $details = [
+//         'email' => 'asdas@mail.com',
+//         'title' => 'Mail From Mini-CRM',
+//         'body' => 'Congratulations your company has been addded to mini-CRM.'
+//     ];
+//     dispatch(new Jobs\SendMail($details));
+// });
 
 Auth::routes(['register' => false]);
 

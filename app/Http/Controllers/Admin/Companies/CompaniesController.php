@@ -11,7 +11,8 @@ use App\Http\Requests\companies\StoreCompanyRequest;
 use App\Http\Requests\companies\UpdateCompanyRequest;
 use App\Http\Requests\companies\UpdateCompanyLogoRequest;
 use Illuminate\Support\Facades\Mail;
-// use App\DataTables\
+use App\Jobs;
+use Illuminate\Support\Facades\Http;
 
 class CompaniesController extends Controller
 {
@@ -21,7 +22,7 @@ class CompaniesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
+    {
         // $company = companies::all();
         // if ($request->ajax()) {
         //     return datatables()->of($company)->make(true);
@@ -63,14 +64,14 @@ class CompaniesController extends Controller
 
         if ($request->has('email')) {
             $details = [
+                'email' => $request->email,
                 'title' => 'Mail From Mini-CRM',
                 'body' => 'Congratulations your company has been addded to mini-CRM.'
             ];
-
-            \Mail::to($request->email)->send(new \App\Mail\notificationMail($details));
+            dispatch(new Jobs\SendMail($details));
         }
 
-        return redirect()->route('admin.companies.show', $company->id)->with('success', 'succesfully Create a New Prospect');
+        return redirect()->route('admin.companies.show', $company->id)->with('success', 'succesfully Create a New Company');
     }
 
     /**
@@ -85,7 +86,7 @@ class CompaniesController extends Controller
     }
 
     public function showEmployees(Companies $company)
-    {   
+    {
         // dd($company);
         return view('admin.companies.showEmployees', compact('company'));
     }
@@ -116,7 +117,7 @@ class CompaniesController extends Controller
     }
 
     public function updateCompanyLogo(UpdateCompanyLogoRequest $request, Companies $company)
-    {   
+    {
         if ($company->photo) {
             Storage::delete($company->photo);
         }
@@ -144,7 +145,7 @@ class CompaniesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Companies $company)
-    {   
+    {
         if ($company->photo) {
             Storage::delete($company->photo);
         }
