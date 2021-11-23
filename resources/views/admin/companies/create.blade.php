@@ -12,7 +12,7 @@
                               Actions
                             </button>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                              <a class="dropdown-item" href="{{route('admin.companies.dashboard')}}">{{ session()->get('locale') == 'en' ? 'View Dashboard' : 'Tampilkan Dashboard' }}</a>
+                              <a class="dropdown-item" href="{{route('admin.companies.dashboard')}}">{{ Auth::user()->lang == 'en' ? 'View Dashboard' : 'Tampilkan Dashboard' }}</a>
                             </div>
                         </div>
                     </div>
@@ -45,8 +45,8 @@
                         <label for="">Image</label>
                         <input type="file" class="form-control" name="photo">
                     </div>
-                    
-                    <button class="btn btn-primary float-right">{{ session()->get('locale') == 'en' ? 'Create Companies' : 'Buat perusahaan' }}</button>
+
+                    <button class="btn btn-primary float-right">{{ Auth::user()->lang == 'en' ? 'Create Companies' : 'Buat perusahaan' }}</button>
                 </form>
             </div>
         </div>

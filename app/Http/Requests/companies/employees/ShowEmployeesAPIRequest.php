@@ -4,7 +4,7 @@ namespace App\Http\Requests\companies\employees;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class storeEmployeeRequest extends FormRequest
+class ShowEmployeesAPIRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class storeEmployeeRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user();
+        return false;
     }
 
     /**
@@ -24,11 +24,7 @@ class storeEmployeeRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'nullable',
-            'phone' => 'nullable',
-            'password' => 'required'
+            'token' => 'required'
         ];
     }
 }

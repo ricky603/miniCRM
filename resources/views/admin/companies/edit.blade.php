@@ -1,5 +1,9 @@
 @extends('layouts.app')
-
+<style>
+    .dataTables_filter label {
+        float: right;
+    }
+</style>
 @section('content')
     <div class="container">
         @if (session('success'))
@@ -10,7 +14,7 @@
         <div class="card mt-3">
             <div class="card-body">
                 <div class="d-flex">
-                    <h1>{{ session()->get('locale') == 'en' ? 'Edit Company' : 'Edit Perusahaan' }} <small class="text-muted">{{ $company->name }}</small></h1>
+                    <h1>{{ Auth::user()->lang == 'en' ? 'Edit Company' : 'Edit Perusahaan' }} <small class="text-muted">{{ $company->name }}</small></h1>
                     <div class="ml-auto">
                         <div class="dropdown">
                             <button class="btn btn-outline-secondary btm-sm dropdown-toggle" type="button"
@@ -21,8 +25,8 @@
                                 <a class="dropdown-item" href="{{ route('admin.companies.dashboard') }}">View
                                     Dashboard</a>
                                 <a class="dropdown-item"
-                                    href="{{ route('admin.companies.show', ['company' => $company->id]) }}">{{ session()->get('locale') == 'en' ? 'Show Company' : 'Tampilkan Perusahaan' }}</a>
-                                    <a href="#" class="dropdown-item text-danger" onclick="deleteCompany()">{{ session()->get('locale') == 'en' ? 'Delete Company' : 'Hapus Perusahaan' }}</a>
+                                    href="{{ route('admin.companies.show', ['company' => $company->id]) }}">{{ Auth::user()->lang == 'en' ? 'Show Company' : 'Tampilkan Perusahaan' }}</a>
+                                    <a href="#" class="dropdown-item text-danger" onclick="deleteCompany()">{{ Auth::user()->lang == 'en' ? 'Delete Company' : 'Hapus Perusahaan' }}</a>
                                     <form action="{{route('admin.companies.delete', ['company'=> $company-> id])}}" id="delete-company-form" style="display:none;" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -44,10 +48,10 @@
                         @endif
                         <hr>
                         <button class="btn btn-outline-primary btn-sm btn-block" data-toggle="modal" data-target="#updateCompanyLogo">
-                            {{ session()->get('locale') == 'en' ? 'New Company Logo' : 'Logo Baru' }}
+                            {{ Auth::user()->lang == 'en' ? 'New Company Logo' : 'Logo Baru' }}
                         </button>
                         <button class="btn btn-outline-primary btn-sm btn-block" onclick="deleteCompanyLogo()">
-                            <i class="fas fa-trash"></i> {{ session()->get('locale') == 'en' ? 'Delete Company Logo' : 'Hapus Logo' }}
+                            <i class="fas fa-trash"></i> {{ Auth::user()->lang == 'en' ? 'Delete Company Logo' : 'Hapus Logo' }}
                             <form action="{{route('admin.companies.delete.company-logo', $company->id)}}" method="POST" id="delete-company-logo-form">
                                 @csrf
                                 @method('DELETE')
@@ -59,7 +63,7 @@
             <div class="col-sm-8">
                 <div class="card mt-3">
                     <div class="card-body">
-                        <h5>{{ session()->get('locale') == 'en' ? 'Company Details' : 'Detil Perusahaan' }}</h5>
+                        <h5>{{ Auth::user()->lang == 'en' ? 'Company Details' : 'Detil Perusahaan' }}</h5>
                         <hr>
                         @if ($errors->count())
                             <div class="alert alert-danger">
@@ -76,7 +80,7 @@
                             @csrf
                             @method('PUT')
                             <div class="form-group">
-                                <label for="">{{ session()->get('locale') == 'en' ? 'Name' : 'Nama' }}</label>
+                                <label for="">{{ Auth::user()->lang == 'en' ? 'Name' : 'Nama' }}</label>
                                 <input type="text" class="form-control" name="name" value="{{$company->name}}">
                             </div>
                             <div class="form-group">
@@ -87,7 +91,7 @@
                                 <label for="">Website</label>
                                 <input type="text" class="form-control" name="website" value="{{$company->website}}">
                             </div>
-                            <button class="btn btn-primary float-right">{{ session()->get('locale') == 'en' ? 'Update Company' : 'Update Perusahaan' }}</button>
+                            <button class="btn btn-primary float-right">{{ Auth::user()->lang == 'en' ? 'Update Company' : 'Update Perusahaan' }}</button>
                         </form>
                     </div>
                 </div>
@@ -95,7 +99,7 @@
                 <div class="card mt-3">
                     <div class="card-body">
                         <div class="d-flex">
-                            <h1>{{ session()->get('locale') == 'en' ? 'Employee' : 'Karyawan' }}</h1>
+                            <h1>{{ Auth::user()->lang == 'en' ? 'Employee' : 'Karyawan' }}</h1>
                             <div class="ml-auto">
                                 <div class="dropdown">
                                     <button class="btn btn-outline-secondary btm-sm dropdown-toggle" type="button"
@@ -103,7 +107,7 @@
                                         Actions
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="{{ route('admin.companies.employees.create', $company->id) }}">{{ session()->get('locale') == 'en' ? 'Add New Employee' : 'Tambah Karyawan Baru' }}</a>
+                                        <a class="dropdown-item" href="{{ route('admin.companies.employees.create', $company->id) }}">{{ Auth::user()->lang == 'en' ? 'Add New Employee' : 'Tambah Karyawan Baru' }}</a>
                                     </div>
                                 </div>
                             </div>
@@ -136,7 +140,7 @@
                                                         </button>
                                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                                                             <a class="dropdown-item" href="{{ route('admin.companies.employees.edit', ['employee'=> $employee-> id]) }}">Edit</a>
-                                                            <a href="#" class="dropdown-item text-danger" onclick="deleteEmployee()">{{ session()->get('locale') == 'en' ? 'Delete Employee' : 'Hapus Karyawan' }}</a>
+                                                            <a href="#" class="dropdown-item text-danger" onclick="deleteEmployee()">{{ Auth::user()->lang == 'en' ? 'Delete Employee' : 'Hapus Karyawan' }}</a>
                                                             <form action="{{route('admin.companies.employees.delete', ['employee'=> $employee-> id])}}" id="delete-employee-form" style="display:none;" method="POST">
                                                                 @csrf
                                                                 @method('DELETE')
@@ -159,7 +163,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">{{ session()->get('locale') == 'en' ? 'Update Company Logo' : 'Update Logo Perusahaan' }}</h5>
+                    <h5 class="modal-title">{{ Auth::user()->lang == 'en' ? 'Update Company Logo' : 'Update Logo Perusahaan' }}</h5>
                     <button type="button" clas="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -172,7 +176,7 @@
                         <label for="">Choose an Image</label>
                         <input type="file" class="form-control-file" name="photo">
                     </div>
-                    <button class="btn btn-primary float-right">{{ session()->get('locale') == 'en' ? 'Update Company Logo' : 'Update Logo Perusahaan' }}</button>
+                    <button class="btn btn-primary float-right">{{ Auth::user()->lang == 'en' ? 'Update Company Logo' : 'Update Logo Perusahaan' }}</button>
                     </form>
                 </div>
             </div>

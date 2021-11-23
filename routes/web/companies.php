@@ -18,6 +18,7 @@ Route::delete('{company}/company-logo', [CompaniesController::class, 'destroyCom
 Route::delete('employee/{employee}', [EmployeesController::class, 'destroy'])->name('employees.delete');
 Route::delete('{company}', [CompaniesController::class, 'destroy'])->name('delete');
 Route::get('employeelist/{company}', [CompaniesController::class, 'showEmployees'])->name('showEmployees');
+Route::get('/generate-company-token/{company}', [CompaniesController::class, 'generateCompanyToken']);
 // Route::get('send-mail', function() {
 //     $details = {
 //         'title' => 'Mail From Mini-CRM',

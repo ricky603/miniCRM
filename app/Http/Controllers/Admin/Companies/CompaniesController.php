@@ -12,7 +12,9 @@ use App\Http\Requests\companies\UpdateCompanyRequest;
 use App\Http\Requests\companies\UpdateCompanyLogoRequest;
 use Illuminate\Support\Facades\Mail;
 use App\Jobs;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class CompaniesController extends Controller
 {
@@ -55,11 +57,12 @@ class CompaniesController extends Controller
      */
     public function store(StoreCompanyRequest $request)
     {
-        $company = Companies::create($request->only('name', 'email', 'website'));
+        $request['created_by_id'] = Auth::user()->id;
+        $company = Companies::create($request->only('name', 'email', 'website', 'created_by_id'));
 
         if ($request->hasFile('photo')) {
             $path = $request->photo->store('public/companies/logo/images');
-            $company->update(['photo'=>$path]);
+            $company->update(['photo' => $path]);
         }
 
         if ($request->has('email')) {
@@ -83,6 +86,13 @@ class CompaniesController extends Controller
     public function show(Companies $company)
     {
         return view('admin.companies.show', compact('company'));
+    }
+
+    public function generateCompanyToken(Companies $company)
+    {
+        $token = JWTAuth::fromUser($company);
+        $company->update(['token' => $token]);
+        return response()->json($token, 200);
     }
 
     public function showEmployees(Companies $company)
@@ -111,6 +121,7 @@ class CompaniesController extends Controller
      */
     public function update(UpdateCompanyRequest $request, Companies $company)
     {
+        $request['updated_by_id'] = Auth::user()->id;
         $company->update($request->validated());
 
         return back()->with('success', 'successfully updated company details!');
@@ -122,7 +133,7 @@ class CompaniesController extends Controller
             Storage::delete($company->photo);
         }
         $path = $request->photo->store('public/companies/logo/images');
-        $company->update(['photo'=>$path]);
+        $company->update(['photo' => $path, 'updated_by_id' => Auth::user()->id]);
 
         return back()->with('success', 'successfully updated company logo');
     }
@@ -132,7 +143,7 @@ class CompaniesController extends Controller
         if ($company->photo) {
             Storage::delete($company->photo);
 
-            $company->update(['photo' => null]);
+            $company->update(['photo' => null, 'updated_by_id' => Auth::user()->id]);
         }
 
         return back()->with('success', 'Successfully deleted company logo!');

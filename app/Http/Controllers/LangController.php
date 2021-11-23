@@ -1,10 +1,10 @@
 <?php
-  
+
 namespace App\Http\Controllers;
-  
+
 use Illuminate\Http\Request;
-use App;
-  
+use Illuminate\Support\Facades\Auth;
+
 class LangController extends Controller
 {
     /**
@@ -16,7 +16,7 @@ class LangController extends Controller
     {
         return view('lang');
     }
-  
+
     /**
      * Display a listing of the resource.
      *
@@ -24,8 +24,11 @@ class LangController extends Controller
     */
     public function change(Request $request)
     {
-        App::setLocale($request->lang);
-        session()->put('locale', $request->lang);
+        // App::setLocale($request->lang);
+        // session()->put('locale', $request->lang);
+        $user =Auth::user();
+        $user->lang = $request->lang;
+        $user->save();
         return redirect()->back();
     }
 }

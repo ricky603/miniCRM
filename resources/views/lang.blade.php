@@ -4,10 +4,10 @@
         <div class="card mt-3">
             <div class="card-body">
                 <div class="form-group">
-                    <label for="">{{ session()->get('locale') == 'en' ? 'Language' : 'Bahasa' }}</label>
+                    <label for="">{{ Auth::user()->lang == 'en' ? 'Language' : 'Bahasa' }}</label>
                     <select class="form-control changeLang">
-                        <option value="en" {{ session()->get('locale') == 'en' ? 'selected' : '' }}>English</option>
-                        <option value="in" {{ session()->get('locale') == 'in' ? 'selected' : '' }}>Bahasa Indonesia</option>
+                        <option value="en" {{ Auth::user()->lang == 'en' ? 'selected' : '' }}>English</option>
+                        <option value="in" {{ Auth::user()->lang == 'in' ? 'selected' : '' }}>Bahasa Indonesia</option>
                     </select>
                 </div>
             </div>

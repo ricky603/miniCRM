@@ -4,7 +4,7 @@
     <div class="card mt-3">
         <div class="card-body">
             <div class="d-flex">
-                <h1>{{ session()->get('locale') == 'en' ? 'Create Employee Details' : 'Buat Detil Karyawan' }} <small class="text-muted">{{$company->name}}</small></h1>
+                <h1>{{ Auth::user()->lang == 'en' ? 'Create Employee Details' : 'Buat Detil Karyawan' }} <small class="text-muted">{{$company->name}}</small></h1>
                 <div class="ml-auto">
                     <div class="dropdown">
                         <button class="btn btn-outline-secondary btm-sm dropdown-toggle" type="button"
@@ -25,7 +25,7 @@
                 @csrf
                 <div class="form-group row">
                     <label for="" class="col-md-3">
-                    {{ session()->get('locale') == 'en' ? 'First Name' : 'Nama Depan' }}
+                    {{ Auth::user()->lang == 'en' ? 'First Name' : 'Nama Depan' }}
                     </label>
                     <div class="col-md-9">
                         <input type="text" name="first_name" class="form-control">
@@ -33,7 +33,7 @@
                 </div>
                 <div class="form-group row">
                     <label for="" class="col-md-3">
-                    {{ session()->get('locale') == 'en' ? 'Last Name' : 'Nama Belakang' }}
+                    {{ Auth::user()->lang == 'en' ? 'Last Name' : 'Nama Belakang' }}
                     </label>
                     <div class="col-md-9">
                         <input type="text" name="last_name" class="form-control">
@@ -49,16 +49,24 @@
                 </div>
                 <div class="form-group row">
                     <label for="" class="col-md-3">
-                    {{ session()->get('locale') == 'en' ? 'Phone' : 'Nomor Telepon' }}
+                        Password
+                    </label>
+                    <div class="col-md-9">
+                        <input type="password" name="password" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="" class="col-md-3">
+                    {{ Auth::user()->lang == 'en' ? 'Phone' : 'Nomor Telepon' }}
                     </label>
                     <div class="col-md-9">
                         <input type="text" name="phone" class="form-control">
                     </div>
                 </div>
-                <button class="btn btn-primary float-right">{{ session()->get('locale') == 'en' ? 'Create Employee' : 'Buat Karyawan' }}</button>
+                <button class="btn btn-primary float-right">{{ Auth::user()->lang == 'en' ? 'Create Employee' : 'Buat Karyawan' }}</button>
             </form>
         </div>
     </div>
 </div>
-    
+
 @endsection

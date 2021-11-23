@@ -2,7 +2,11 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css"> --}}
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap4.min.css">
     @extends('layouts.app')
-
+    <style>
+        .dataTables_filter label {
+            float: right;
+        }
+    </style>
     @section('content')
         <div class="container">
 
@@ -15,16 +19,16 @@
             <div class="card mt-3">
                 <div class="card-body">
                     <div class="d-flex">
-                        <h1><small class="tex-muted">{{ session()->get('locale') == 'en' ? 'Showing All Employees' : 'Menampilkan semua Karyawan' }}</small></h1>
+                        <h1><small class="tex-muted">{{ Auth::user()->lang == 'en' ? 'Showing All Employees' : 'Menampilkan semua Karyawan' }}</small></h1>
                     </div>
 
                     @if ($employees->count())
                     <table id="company-table" class="table table-hover table-striped table-bordered">
                         <thead>
                             <tr>
-                                <th>{{ session()->get('locale') == 'en' ? 'First Name' : 'Nama Depan' }}</th>
-                                <th>{{ session()->get('locale') == 'en' ? 'Last Name' : 'Nama Belakang' }}</th>
-                                <th>{{ session()->get('locale') == 'en' ? 'Phone' : 'Nomor Telepon' }}</th>
+                                <th>{{ Auth::user()->lang == 'en' ? 'First Name' : 'Nama Depan' }}</th>
+                                <th>{{ Auth::user()->lang == 'en' ? 'Last Name' : 'Nama Belakang' }}</th>
+                                <th>{{ Auth::user()->lang == 'en' ? 'Phone' : 'Nomor Telepon' }}</th>
                                 <th>Email</th>
                                 <th>Actions</th>
                             </tr>
@@ -45,7 +49,7 @@
                                                     </button>
                                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                                                         <a class="dropdown-item" href="{{ route('admin.companies.employees.edit', ['employee'=> $employee-> id]) }}">Edit</a>
-                                                        <a href="#" class="dropdown-item text-danger" onclick="deleteEmployee()">{{ session()->get('locale') == 'en' ? 'Delete Employee' : 'Hapus Karyawan' }}</a>
+                                                        <a href="#" class="dropdown-item text-danger" onclick="deleteEmployee()">{{ Auth::user()->lang == 'en' ? 'Delete Employee' : 'Hapus Karyawan' }}</a>
                                                         <form action="{{route('admin.companies.employees.delete', ['employee'=> $employee-> id])}}" id="delete-employee-form" style="display:none;" method="POST">
                                                             @csrf
                                                             @method('DELETE')

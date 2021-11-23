@@ -1,5 +1,9 @@
 @extends('layouts.app')
-
+<style>
+    .dataTables_filter label {
+        float: right;
+    }
+</style>
 @section('content')
     @if (session('success'))
         <div class="alert alert-success">
@@ -13,7 +17,7 @@
                 <div class="card mt-3">
                     <div class="card-body">
                         <div class="d-flex">
-                            <h1>{{ session()->get('locale') == 'en' ? 'Employee' : 'Karyawan' }} <small class="text-muted">{{ $company->name }}</small></h1>
+                            <h1>{{ Auth::user()->lang == 'en' ? 'Employee' : 'Karyawan' }} <small class="text-muted">{{ $company->name }}</small></h1>
                             <div class="ml-auto">
                                 <div class="dropdown">
                                     <button class="btn btn-outline-secondary btm-sm dropdown-toggle" type="button"
@@ -21,7 +25,7 @@
                                         Actions
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="{{ route('admin.companies.employees.create', $company->id) }}">{{ session()->get('locale') == 'en' ? 'Add New Employee' : 'Tambah karyawan baru' }}</a>
+                                        <a class="dropdown-item" href="{{ route('admin.companies.employees.create', $company->id) }}">{{ Auth::user()->lang == 'en' ? 'Add New Employee' : 'Tambah karyawan baru' }}</a>
                                     </div>
                                 </div>
                             </div>
@@ -31,10 +35,10 @@
                             <table id="employee-table" class="table table-hover table-striped table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>{{ session()->get('locale') == 'en' ? 'First Name' : 'Nama Depan' }}</th>
-                                        <th>{{ session()->get('locale') == 'en' ? 'Last Name' : 'Nama Belakang' }}</th>
+                                        <th>{{ Auth::user()->lang == 'en' ? 'First Name' : 'Nama Depan' }}</th>
+                                        <th>{{ Auth::user()->lang == 'en' ? 'Last Name' : 'Nama Belakang' }}</th>
                                         <th>Email</th>
-                                        <th>{{ session()->get('locale') == 'en' ? 'Phone' : 'Nomor Telepon' }}</th>
+                                        <th>{{ Auth::user()->lang == 'en' ? 'Phone' : 'Nomor Telepon' }}</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -54,7 +58,7 @@
                                                         </button>
                                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                                                             <a class="dropdown-item" href="{{ route('admin.companies.employees.edit', ['employee'=> $employee-> id]) }}">Edit</a>
-                                                            <a href="#" class="dropdown-item text-danger" onclick="deleteEmployee()">{{ session()->get('locale') == 'en' ? 'Delete Employee' : 'Hapus Karyawan' }}</a>
+                                                            <a href="#" class="dropdown-item text-danger" onclick="deleteEmployee()">{{ Auth::user()->lang == 'en' ? 'Delete Employee' : 'Hapus Karyawan' }}</a>
                                                             <form action="{{route('admin.companies.employees.delete', ['employee'=> $employee-> id])}}" id="delete-employee-form" style="display:none;" method="POST">
                                                                 @csrf
                                                                 @method('DELETE')

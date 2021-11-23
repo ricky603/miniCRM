@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Jobs;
+use App\Http\Controllers\Admin\Companies\EmployeesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,4 +36,12 @@ Route::prefix('companies')->middleware('auth')->name('admin.companies.')->group(
 
 Route::prefix('employees')->middleware('auth')->name('admin.employees.')->group(base_path('routes/web/employees.php'));
 
+Route::get('/{company}/employee-list', [EmployeesController::class, 'showEmployeesApi'])->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);
+
 Route::prefix('lang')->middleware('auth')->name('lang.')->group(base_path('routes/web/lang.php'));
+Route::prefix('timezone')->middleware('auth')->name('timezone.')->group(base_path('routes/web/timezone.php'));
+Route::get('open', [EmployeesController::class, 'open']);
+
+Route::group(['middleware' => ['jwt.verify']], function() {
+    Route::get('/{company}/employee-list', [EmployeesController::class, 'showEmployeesApi']);
+});

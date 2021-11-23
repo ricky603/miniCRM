@@ -1,5 +1,9 @@
 @extends('layouts.app')
-
+<style>
+    .dataTables_filter label {
+        float: right;
+    }
+</style>
 @section('content')
     @if (session('success'))
         <div class="alert alert-success">
@@ -18,10 +22,10 @@
                                 Actions
                             </button>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="{{ route('admin.companies.dashboard') }}">{{ session()->get('locale') == 'en' ? 'View Dashboard' : 'Tampilkan Dashboard' }}</a>
+                                <a class="dropdown-item" href="{{ route('admin.companies.dashboard') }}">{{ Auth::user()->lang == 'en' ? 'View Dashboard' : 'Tampilkan Dashboard' }}</a>
                                 <a class="dropdown-item"
-                                    href="{{ route('admin.companies.edit', ['company'=> $company-> id]) }}">{{ session()->get('locale') == 'en' ? 'Edit Company' : 'Edit Perusahaan' }}</a>
-                                    <a href="#" class="dropdown-item text-danger" onclick="deleteCompany()">{{ session()->get('locale') == 'en' ? 'Delete Company' : 'Hapus Perusahaan' }}</a>
+                                    href="{{ route('admin.companies.edit', ['company'=> $company-> id]) }}">{{ Auth::user()->lang == 'en' ? 'Edit Company' : 'Edit Perusahaan' }}</a>
+                                    <a href="#" class="dropdown-item text-danger" onclick="deleteCompany()">{{ Auth::user()->lang == 'en' ? 'Delete Company' : 'Hapus Perusahaan' }}</a>
                                     <form action="{{route('admin.companies.delete', ['company'=> $company-> id])}}" id="delete-company-form" style="display:none;" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -47,7 +51,7 @@
             <div class="col-sm-8">
                 <div class="card mt-3">
                     <div class="card-body">
-                        <h5>{{ session()->get('locale') == 'en' ? 'Company Details' : 'Detil Perusahaan' }}</h5>
+                        <h5>{{ Auth::user()->lang == 'en' ? 'Company Details' : 'Detil Perusahaan' }}</h5>
                         <hr>
                             <div class="form-group">
                                 <label for="">Name</label>
@@ -61,13 +65,22 @@
                                 <label for="">Website</label>
                                 <p>{{$company->website}}</p>
                             </div>
+                            <div class="form-group">
+                                <label for="">Token</label>
+                                <p>
+                                @if ($company->token)
+                                    {{$company->token}}
+                                @else
+                                    <button id="generate_token" company_id="{{$company->id}}">Generate Token</button>
+                                @endif</p>
+                            </div>
                     </div>
                 </div>
 
                 <div class="card mt-3">
                     <div class="card-body">
                         <div class="d-flex">
-                            <h1>{{ session()->get('locale') == 'en' ? 'Employee' : 'Karyawan' }}</h1>
+                            <h1>{{ Auth::user()->lang == 'en' ? 'Employee' : 'Karyawan' }}</h1>
                             <div class="ml-auto">
                                 <div class="dropdown">
                                     <button class="btn btn-outline-secondary btm-sm dropdown-toggle" type="button"
@@ -75,7 +88,7 @@
                                         Actions
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="{{ route('admin.companies.employees.create', $company->id) }}">{{ session()->get('locale') == 'en' ? 'Add New Employee' : 'Tambah karyawan baru' }}</a>
+                                        <a class="dropdown-item" href="{{ route('admin.companies.employees.create', $company->id) }}">{{ Auth::user()->lang == 'en' ? 'Add New Employee' : 'Tambah karyawan baru' }}</a>
                                     </div>
                                 </div>
                             </div>
@@ -85,10 +98,10 @@
                             <table id="employee-table" class="table table-hover table-striped table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>{{ session()->get('locale') == 'en' ? 'First Name' : 'Nama Depan' }}</th>
-                                        <th>{{ session()->get('locale') == 'en' ? 'Last Name' : 'Nama Belakang' }}</th>
+                                        <th>{{ Auth::user()->lang == 'en' ? 'First Name' : 'Nama Depan' }}</th>
+                                        <th>{{ Auth::user()->lang == 'en' ? 'Last Name' : 'Nama Belakang' }}</th>
                                         <th>Email</th>
-                                        <th>{{ session()->get('locale') == 'en' ? 'Phone' : 'Nomor Telepon' }}e</th>
+                                        <th>{{ Auth::user()->lang == 'en' ? 'Phone' : 'Nomor Telepon' }}e</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -108,7 +121,7 @@
                                                         </button>
                                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                                                             <a class="dropdown-item" href="{{ route('admin.companies.employees.edit', ['employee'=> $employee-> id]) }}">Edit</a>
-                                                            <a href="#" class="dropdown-item text-danger" onclick="deleteEmployee()">{{ session()->get('locale') == 'en' ? 'Delete Employee' : 'Hapus Karyawan' }}</a>
+                                                            <a href="#" class="dropdown-item text-danger" onclick="deleteEmployee()">{{ Auth::user()->lang == 'en' ? 'Delete Employee' : 'Hapus Karyawan' }}</a>
                                                             <form action="{{route('admin.companies.employees.delete', ['employee'=> $employee-> id])}}" id="delete-employee-form" style="display:none;" method="POST">
                                                                 @csrf
                                                                 @method('DELETE')
@@ -150,6 +163,9 @@
 
              <script>
                 $(document).ready(function () {
+                    $('#generate_token').click(function() {
+                        $.get('/companies/generate-company-token/' + $(this).attr('company_id'))
+                    })
                     // Setup - add a text input to each footer cell
                     $('#employee-table thead tr')
                         .clone(true)
